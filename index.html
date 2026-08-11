@@ -1,52 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Mapa Reserva Río de los Pájaros</title>
-  <link rel="stylesheet" href="https://unpkg.com" />
-  <style>
-    body { margin: 0; padding: 0; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Reserva Río de los Pájaros</title>
+
+    <!-- Estilos de Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com" />
+
+    <style>
+        /* Hace que el mapa ocupe el 100% de la pantalla completa sin bordes */
+        html, body, #map {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
 
-  <div id="map"></div>
+    <!-- Contenedor del mapa -->
+    <div id="map"></div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    // 1. Configuramos los dos tipos de mapa (Normal y Satélite)
-    var mapaBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap'
-    });
+    <!-- Scripts de Leaflet -->
+    <script src="https://unpkg.com"></script>
 
-    var sateliteBase = L.tileLayer('https://arcgisonline.com{z}/{y}/{x}', {
-      attribution: 'Tiles © Esri'
-    });
+    <script>
+        // 1. Definir las capas base del mapa
 
-    // 2. Creamos el mapa usando el mapa base primero
-    var map = L.map('map', {
-      center: [-32.22, -58.15],
-      zoom: 14,
-      layers: [mapaBase]
-    });
+        // Capa de mapa estándar (OpenStreetMap)
+        const mapaEstandar = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        });
 
-    // 3. Agrupamos los mapas para el botón selector
-    var mapasParaElegir = {
-      "🗺️ Mapa": mapaBase,
-      "🛰️ Satélite": sateliteBase
-    };
+        // Capa Satelital (Esri World Imagery)
+        const mapaSatelite = L.tileLayer('https://arcgisonline.com{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        });
 
-    // 4. Agregamos el botón selector arriba a la derecha
-    L.control.layers(mapasParaElegir).addTo(map);
+        // 2. Inicializar el mapa centrado en la Reserva de Colón (-32.2215, -58.1295 es aproximado)
+        // Puedes cambiar los números de setView([latitud, longitud], zoom) si necesitas centrarlo en otra coordenada exacta
+        const map = L.map('map', {
+            center: [-32.2215, -58.1295], 
+            zoom: 14,
+            layers: [mapaSatelite] // Inicia directamente con la vista de satélite activa por defecto
+        });
 
-    // 5. Agregamos el pin de la Reserva
-    L.marker([-32.22, -58.15])
-      .addTo(map)
-      .bindPopup("Reserva Río de los Pájaros");
-  </script>
+        // 3. Crear el menú de control para alternar entre capas en la esquina superior derecha
+        const capasBase = {
+            "Vista Satélite": mapaSatelite,
+            "Mapa Normal": mapaEstandar
+        };
+
+        L.control.layers(capasBase).addTo(map);
+    </script>
 
 </body>
 </html>
-
-
