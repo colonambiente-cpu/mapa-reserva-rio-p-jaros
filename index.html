@@ -1,69 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<title>Reserva Río de los Pájaros</title>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
-<style>
-
-html,body{
-margin:0;
-padding:0;
-height:100%;
-}
-
-#map{
-width:100%;
-height:100vh;
-}
-
-</style>
-
+  <meta charset="UTF-8">
+  <title>Mapa Reserva Río de los Pájaros</title>
+  <link rel="stylesheet" href="https://unpkg.com" />
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+  </style>
 </head>
-
 <body>
 
-<div id="map"></div>
+  <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-  // Aquí configuramos los dos tipos de mapa
-  var mapaBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-  });
+    // 1. Configuramos los dos tipos de mapa (Normal y Satélite)
+    var mapaBase = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap'
+    });
 
-  var sateliteBase = L.tileLayer('https://arcgisonline.com{z}/{y}/{x}', {
-    attribution: 'Tiles © Esri'
-  });
+    var sateliteBase = L.tileLayer('https://arcgisonline.com{z}/{y}/{x}', {
+      attribution: 'Tiles © Esri'
+    });
 
-  // Aquí creamos el mapa interactivo usando el mapa base primero
-  var map = L.map('map', {
-    center: [-32.22, -58.14], // Ajusta estas coordenadas si tu mapa se abre en otro lado
-    zoom: 13,
-    layers: [mapaBase]
-  });
+    // 2. Creamos el mapa usando el mapa base primero
+    var map = L.map('map', {
+      center: [-32.22, -58.15],
+      zoom: 14,
+      layers: [mapaBase]
+    });
 
-  // Aquí agrupamos los mapas para que aparezca el botón de control
-  var mapasParaElegir = {
-    "🗺️ Mapa": mapaBase,
-    "🛰️ Satélite": sateliteBase
-  };
+    // 3. Agrupamos los mapas para el botón selector
+    var mapasParaElegir = {
+      "🗺️ Mapa": mapaBase,
+      "🛰️ Satélite": sateliteBase
+    };
 
-  // Aquí agregamos el botón selector arriba a la derecha
-  L.control.layers(mapasParaElegir).addTo(map);
+    // 4. Agregamos el botón selector arriba a la derecha
+    L.control.layers(mapasParaElegir).addTo(map);
 
-
-
-L.marker([-32.22,-58.15])
-.addTo(map)
-.bindPopup("Reserva Río de los Pájaros");
-
-</script>
+    // 5. Agregamos el pin de la Reserva
+    L.marker([-32.22, -58.15])
+      .addTo(map)
+      .bindPopup("Reserva Río de los Pájaros");
+  </script>
 
 </body>
 </html>
+
+
