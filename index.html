@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa Reserva Río de los Pájaros</title>
 
-    <!-- Estilos de Leaflet -->
+    <!-- 1. CSS de Leaflet (Corregido) -->
     <link rel="stylesheet" href="https://unpkg.com" />
 
     <style>
         /* Hace que el mapa ocupe el 100% de la pantalla completa sin bordes */
-        html, body, #map {
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #map {
             width: 100%;
             height: 100%;
         }
@@ -20,43 +24,43 @@
 </head>
 <body>
 
-    <!-- Contenedor del mapa -->
+    <!-- 2. Contenedor del mapa -->
     <div id="map"></div>
 
-    <!-- Scripts de Leaflet -->
+    <!-- 3. Script de Leaflet (Corregido) -->
     <script src="https://unpkg.com"></script>
 
     <script>
-        // 1. Definir las capas base del mapa
-
+        // 4. Definir las capas base del mapa
+        
         // Capa de mapa estándar (OpenStreetMap)
         const mapaEstandar = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; OpenStreetMap'
+            attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         });
 
         // Capa Satelital (Esri World Imagery)
-        const mapaSatelite = L.tileLayer('https://arcgisonline.com{z}/{y}/{x}', {
+        const mapaSatelital = L.tileLayer('https://arcgisonline.com{z}/{y}/{x}', {
             maxZoom: 19,
             attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
         });
 
-        // 2. Inicializar el mapa centrado en la Reserva de Colón (-32.2215, -58.1295 es aproximado)
-        // Puedes cambiar los números de setView([latitud, longitud], zoom) si necesitas centrarlo en otra coordenada exacta
+        // 5. Inicializar el mapa centrado en la Reserva de Colón
+        // Coordenadas: -32.2215, -58.1295. Zoom inicial: 14
         const map = L.map('map', {
-            center: [-32.2215, -58.1295], 
+            center: [-32.2215, -58.1295],
             zoom: 14,
-            layers: [mapaSatelite] // Inicia directamente con la vista de satélite activa por defecto
+            layers: [mapaEstandar] // Capa activa por defecto
         });
 
-        // 3. Crear el menú de control para alternar entre capas en la esquina superior derecha
+        // 6. Crear un control para cambiar entre las capas
         const capasBase = {
-            "Vista Satélite": mapaSatelite,
-            "Mapa Normal": mapaEstandar
+            "Mapa Estándar": mapaEstandar,
+            "Vista Satelital": mapaSatelital
         };
 
         L.control.layers(capasBase).addTo(map);
     </script>
-
 </body>
 </html>
+
