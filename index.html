@@ -67,7 +67,10 @@ L.control.layers(mapasBase).addTo(map);
 // PRIMER PUNTO - ENTRADA PRINCIPAL
 L.marker([-32.2215, -58.1295])
     .addTo(map)
-    .bindPopup("<b>Entrada Principal</b><br>Acceso a la Reserva");</script>
+    .bindPopup("<b>Entrada Principal</b><br>Acceso a la Reserva");<// Cuando hagas clic en el mapa, aparece un cuadro con las coordenadas
+map.on('click', function(e) {
+    alert("Latitud: " + e.latlng.lat + ", Longitud: " + e.latlng.lng);
+});/script>
 
 </body>
 </html>
