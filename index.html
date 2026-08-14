@@ -1,42 +1,70 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Reserva Río de los Pájaros</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
-        #map {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
-</head>
-<body>
-
-    <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // 1. CENTRAR MAPA EN LA RESERVA
         const map = L.map('map').setView([-32.208915862021136, -58.14398288726807], 15);
 
-        // 2. CAPA DE MAPA BASE (OpenStreetMap)
+        // 2. CAPA DE MAPA BASE
         const mapaNormal = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap'
         }).addTo(map);
 
-        // 3. AGREGAR PIN DE ENTRADA PRINCIPAL
-        L.marker([-32.208915862021136, -58.14398288726807])
+        // ==========================================
+        // 1. CREAR LOS COLORES DE LOS PINES
+        // ==========================================
+        const iconoVerde = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+
+        const iconoNaranja = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-orange.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+
+        const iconoVioleta = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-violet.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+
+        const iconoRojo = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41]
+        });
+
+
+        // ==========================================
+        // 2. COLOCAR LOS PINES EN EL MAPA
+        // ==========================================
+
+        // 🟢 ENTRADA (Pin Verde)
+        L.marker([-32.208915862021136, -58.14398288726807], {icon: iconoVerde})
             .addTo(map)
-            .bindPopup('<b>Entrada Principal</b><br>Acceso a la Reserva Natural.');
+            .bindPopup('<b>Entrada Principal</b><br>Acceso a la Reserva.');
+
+        // 🟪 OFICINA DE AMBIENTE (Pin Violeta)
+        L.marker([-32.209500, -58.144500], {icon: iconoVioleta})
+            .addTo(map)
+            .bindPopup('<b>Oficina Técnica de Ambiente</b><br>Atención y gestión ambiental.');
+
+        // 🟠 CASILLA DE AVISTAJES (Pin Naranja)
+        L.marker([-32.210500, -58.145500], {icon: iconoNaranja})
+            .addTo(map)
+            .bindPopup('<b>Casilla de Avistajes</b><br>Punto estratégico para observar fauna.');
+
+        // 🔴 CASILLA LAGUNA / CONTROL E INFO (Pin Rojo)
+        L.marker([-32.211500, -58.146500], {icon: iconoRojo})
+            .addTo(map)
+            .bindPopup('<b>Control e Información</b><br>Ingreso al sector Laguna.');
+
+    </script>
+</body>
     </script>
 
 </body>
