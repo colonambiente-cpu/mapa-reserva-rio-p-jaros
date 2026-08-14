@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa Reserva Río de los Pájaros</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         html, body {
             margin: 0;
@@ -12,58 +12,32 @@
             width: 100%;
             height: 100%;
         }
-        #mapa {
+        #map {
             width: 100%;
             height: 100%;
         }
     </style>
 </head>
 <body>
-    <div id="mapa"></div>
+
+    <div id="map"></div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // MAPA CENTRADO EN LA RESERVA
-        const map = L.map('mapa').setView([-32.208915862021136-58.14398288726807], 14);
+        // 1. CENTRAR MAPA EN LA RESERVA
+        const map = L.map('map').setView([-32.208915862021136, -58.14398288726807], 15);
 
-        // MAPA NORMAL
-        const mapaNormal = L.tileLayer(
-            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap contributors'
-            }
-        );
+        // 2. CAPA DE MAPA BASE (OpenStreetMap)
+        const mapaNormal = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
 
-        // MAPA SATELITAL
-        const mapaSatelital = L.tileLayer(
-            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            {
-                maxZoom: 19,
-                attribution: 'Tiles © Esri'
-            }
-        );
-
-        // MOSTRAR MAPA NORMAL AL INICIAR
-        mapaNormal.addTo(map);
+        // 3. AGREGAR PIN DE ENTRADA PRINCIPAL
         L.marker([-32.208915862021136, -58.14398288726807])
-  .addTo(map)
-  .bindPopup('<b>Entrada Principal</b><br>Acceso a la Reserva Natural.');
-        // BOTÓN PARA CAMBIAR ENTRE MAPAS
-        const mapasBase = {
-            "Mapa": mapaNormal,
-            "Satélite": mapaSatelital
-        };
-        L.control.layers(mapasBase).addTo(map);
-
-        // PRIMER PUNTO - ENTRADA PRINCIPAL
-        L.marker([-32.2215, -58.1295])
             .addTo(map)
-            .bindPopup("<b>Entrada Principal</b><br>Acceso a la Reserva");
-
-        // MOSTRAR COORDENADAS AL HACER CLIC
-        map.on('click', function(e) {
-            alert("Latitud: " + e.latlng.lat + ", Longitud: " + e.latlng.lng);
-        });
+            .bindPopup('<b>Entrada Principal</b><br>Acceso a la Reserva Natural.');
     </script>
+
 </body>
 </html>
