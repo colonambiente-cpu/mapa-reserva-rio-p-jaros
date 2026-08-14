@@ -45,7 +45,9 @@
 
         // MOSTRAR MAPA NORMAL AL INICIAR
         mapaNormal.addTo(map);
-
+        L.marker([-32.208915862021136, -58.14398288726807])
+  .addTo(map)
+  .bindPopup('<b>Entrada Principal</b><br>Acceso a la Reserva Natural.');
         // BOTÓN PARA CAMBIAR ENTRE MAPAS
         const mapasBase = {
             "Mapa": mapaNormal,
